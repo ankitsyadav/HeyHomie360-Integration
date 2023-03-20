@@ -25,7 +25,7 @@ type QueryParametersType = {
   partnerPayload: string;
   redirectUrl: string;
   forwardState: string;
-  next: string
+  next: string;
 };
 
 const demoPartnerId = "f167CmPA";
@@ -47,10 +47,10 @@ export default function Home() {
       partnerPayload: "",
       redirectUrl: "",
       forwardState: "",
-      next: ""
+      next: "",
     });
   const [callbackObject, setcallbackObject] = useState<CallbackObjectType>();
-  const [copied, setCopied] = useState<boolean>(false)
+  const [copied, setCopied] = useState<boolean>(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -67,12 +67,12 @@ export default function Home() {
 
   const handleToggleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-    
+
     setQueryParamatersState((queryParametersState) => ({
       ...queryParametersState,
       [name]: checked ? "login" : "",
     }));
-  }
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -80,11 +80,11 @@ export default function Home() {
 
   useEffect(() => {
     const timeoutCopied = window.setTimeout(() => {
-        setCopied(false)
+      setCopied(false);
     }, 5000);
 
-    return () => window.clearTimeout(timeoutCopied );
-  }, [copied])
+    return () => window.clearTimeout(timeoutCopied);
+  }, [copied]);
 
   const handleCallback = (callbackObject: CallbackObjectType) => {
     /* The callback function returns the client ID as well as all channel IDs, for which you're enabled to fetch the API key via the Partner API */
@@ -119,9 +119,7 @@ export default function Home() {
     }
   }, [id]);
 
-
   const returnQueryParameterLiteral = () => {
-  
     const parameters = [
       { stateVar: "email", queryParam: "email" },
       { stateVar: "clientName", queryParam: "name" },
@@ -146,15 +144,13 @@ export default function Home() {
     });
 
     if (literalStringArr.length > 0) {
-      return (`queryParameters={{\n\t${literalStringArr.join(",\n\t")}\n}}`);
+      return `queryParameters={{\n\t${literalStringArr.join(",\n\t")}\n}}`;
     } else {
-      return ``
+      return ``;
     }
-    
   };
 
-
-  const generateCodeSnippet = ():string => {
+  const generateCodeSnippet = (): string => {
     let textBase = dedent(
       `<ConnectButton
         partnerId={${partnerId}}
@@ -171,7 +167,7 @@ export default function Home() {
     );
 
     if (number) {
-      textBase = textBase.concat(`\nrequestedNumber="${number}"`)
+      textBase = textBase.concat(`\nrequestedNumber="${number}"`);
     }
 
     const parameters = [
@@ -198,11 +194,11 @@ export default function Home() {
 
     let queryParams = returnQueryParameterLiteral();
     if (queryParams !== ``) {
-      textBase = textBase.concat("\n", queryParams)
+      textBase = textBase.concat("\n", queryParams);
     }
-  
-    return textBase.concat( "\n/>")
-  }
+
+    return textBase.concat("\n/>");
+  };
 
   return (
     <div className="w-screen h-screen overflow-hidden">
@@ -247,13 +243,13 @@ export default function Home() {
                     ),
                   }}
                 />
-                <Input
+                {/* <Input
                   label="Button Label"
                   value={label}
                   onChange={(e) => setLabel(e.target.value)}
                   optional
                   placeholder="Create your WhatsApp Business Account"
-                />
+                /> */}
 
                 <label className="inline-flex relative items-center justify-between cursor-pointer mt-2 pr-1">
                   <span className="block text-sm font-medium text-gray-500">
@@ -357,7 +353,7 @@ export default function Home() {
                 <p className="text-md font-bold text-gray-700 flex-none">
                   Preview
                 </p>
-                <div className="mt-2 p-6 bg-dots rounded-md grow border border-gray-100 relative">
+                <div className="mt-2 p-6 bg-dots rounded-md grow border border-black-100 relative">
                   <div className="w-full h-full flex flex-col items-center justify-center">
                     {mounted && (
                       <>
@@ -365,11 +361,7 @@ export default function Home() {
                           disabled={!partnerId}
                           partnerId={partnerId}
                           className="bg-gray-800 text-white hover:bg-gray-900 drop-shadow-xl rounded-md px-4 py-3 outline-none focus:ring focus:ring-gray-900 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
-                          label={
-                            label
-                              ? label
-                              : "Create your WhatsApp Business Account"
-                          }
+                          label="Create your WhatsApp Business Account"
                           callback={handleCallback}
                           env={partnerId === demoPartnerId ? "staging" : "prod"}
                           requestedNumber={number}
@@ -395,7 +387,7 @@ export default function Home() {
                           }}
                         />
                         {!partnerId && (
-                          <p className="absolute bottom-2 mt-1 text-xs text-red-600">
+                          <p className=" mt-1 text-xxs text-red-600">
                             Please add a Partner ID to enable button
                           </p>
                         )}
@@ -405,7 +397,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex flex-col grow pt-6">
+              {/* <div className="flex flex-col grow pt-6">
                 <div className="flex flex-row items-baseline justify-between w-full pb-2">
                   <p className="text-md font-bold text-gray-700 flex-none">
                     Connect Button Code
@@ -495,7 +487,7 @@ export default function Home() {
                     </Button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex flex-col w-1/4 max-w-xl">
